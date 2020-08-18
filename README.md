@@ -4,7 +4,7 @@ For synchronous applications, this is trival using the built in  `recover` funct
 
 Regardless of how complex your application is, the premise is simple. If a panic occurrs in any of your application's execution threads, notify all other threads of execution that they must iniatiate a clean shutdown process as the application is requesting to be shutdown.
 
-As a prerequisite, we must contruct each concurrent thread of execution so that it is preemptable. A common way to do this, as described in detail by *Peter Bourgon* in his talk, [Go + Microservices = Go Kit](), is to use the concept of run groups.
+As a prerequisite, we must contruct each concurrent thread of execution so that it is preemptable. A common way to do this, as described in detail by *Peter Bourgon* in his talk, [Ways to do Things](https://www.youtube.com/watch?v=LHe1Cb_Ud_M), is to use the concept of run groups.
 
 Described simply, a run group is a wrapper for any task such that the task can be started and stopped. In this example, we'll use the following interface.
 
