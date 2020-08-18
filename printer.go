@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"log"
 	"time"
@@ -21,7 +20,7 @@ func NewPrinter(str string) Runnable {
 	}
 }
 
-func (p printer) Run(ctx context.Context) error {
+func (p printer) Run() error {
 	log.Printf("starting %s printer\n", p.str)
 	p.ticker.Reset(1 * time.Second)
 

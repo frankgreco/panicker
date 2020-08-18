@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"log"
 
 	"github.com/oklog/run"
@@ -16,46 +15,24 @@ type Group struct {
 }
 
 type Runnable interface {
-	Run(context.Context) error
+	Run() error
 	Close(error) error
 }
 
-type Process struct {
-	cancel context.CancelFunc
-}
-
-func (g *Group) Add(ctx context.Context, condition bool, name string, r Runnable) {
+func (g *Group) Add(condition bool, r Runnable) {
 	if !condition {
 		return
 	}
 
 	g.group.Add(func() error {
-		return r.Run(ctx)
+		return r.Run()
 	}, func(err error) {
 		if err := r.Close(err); err != nil {
-			log.Printf("error closing %s: %s", name, err)
+			log.Printf("error closing runnable: %s", err)
 		}
 	})
 }
 
 func (g *Group) Run() error {
 	return g.group.Run()
-}
-
-func NewMonitor(cancel context.CancelFunc) *Process {
-	return &Process{
-		cancel: cancel,
-	}
-}
-
-func (p *Process) Run(ctx context.Context) error {
-	log.Println("starting parent process monitor")
-	<-ctx.Done()
-	return nil
-}
-
-func (p *Process) Close(error) error {
-	log.Println("closing parent process monitor")
-	p.cancel()
-	return nil
 }

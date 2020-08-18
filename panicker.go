@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"log"
 	"time"
 )
@@ -16,7 +15,7 @@ func NewPanicker(after time.Duration) Runnable {
 	}
 }
 
-func (p panicker) Run(context.Context) error {
+func (p panicker) Run() error {
 	log.Println("starting panicker")
 
 	defer func() {

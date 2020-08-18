@@ -24,10 +24,10 @@ func main() {
 	}()
 
 	var g Group
-	g.Add(ctx, Always, "parent process", NewMonitor(cancel))
-	g.Add(ctx, Always, "chuck printer", NewPrinter("Chuck"))
-	g.Add(ctx, Always, "bass printer", NewPrinter("Bass"))
-	g.Add(ctx, os.Getenv("PANICKER") == "YES", "panicker", NewPanicker(5*time.Second))
+	g.Add(Always, NewMonitor(ctx, cancel))
+	g.Add(Always, NewPrinter("Chuck"))
+	g.Add(Always, NewPrinter("Bass"))
+	g.Add(os.Getenv("PANICKER") == "YES", NewPanicker(5*time.Second))
 
 	if err := g.Run(); err != nil {
 		fmt.Fprintln(os.Stderr, err.Error())
