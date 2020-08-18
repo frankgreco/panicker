@@ -89,3 +89,5 @@ Chuck Bass
 2020/08/17 20:59:32 closing Chuck Bass printer
 2020/08/17 20:59:32 closing panicker
 ```
+
+Real world examples of this can be found [here](https://github.com/northwesternmutual/kanali/blob/master/cmd/kanali/app/kanali.go#L141-L148).
