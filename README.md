@@ -38,7 +38,7 @@ func (p printer) Run() error {
 func (p printer) Close(err error) error {
     p.ticker.Stop()
     p.done <- true
-	return nil
+    return nil
 }
 ```
 
